@@ -1,10 +1,10 @@
 package aplikasi.todolist.db;
 
-import aplikasi.todolist.db.TodoList.Repository.TodoListRepository;
-import aplikasi.todolist.db.TodoList.Repository.TodoListRepositoryImpl;
-import aplikasi.todolist.db.TodoList.Service.TodoListService;
-import aplikasi.todolist.db.TodoList.Service.TodoListServiceImpl;
-import aplikasi.todolist.db.TodoList.View.TodoListView;
+import aplikasi.todolist.db.Repository.TodoListRepository;
+import aplikasi.todolist.db.Repository.TodoListRepositoryImpl;
+import aplikasi.todolist.db.Service.TodoListService;
+import aplikasi.todolist.db.Service.TodoListServiceImpl;
+import aplikasi.todolist.db.View.TodoListView;
 
 public class AplikasiTodoListV2 {
     public static void main(String[] args) {
