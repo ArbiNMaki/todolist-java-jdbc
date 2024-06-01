@@ -3,14 +3,12 @@ package aplikasi.todolist.db.Repository;
 import aplikasi.todolist.db.Entity.TodoList;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TodoListRepositoryImpl implements TodoListRepository {
 
-    public TodoList[] data = new TodoList[10];
     private DataSource dataSource;
 
     public TodoListRepositoryImpl(DataSource dataSource) {
@@ -19,30 +17,25 @@ public class TodoListRepositoryImpl implements TodoListRepository {
 
     @Override
     public TodoList[] getAll() {
-        return data;
-    }
+        String sql = "SELECT id, todo FROM todolist";
 
-    public boolean isFull() {
-        var isFull = true;
-        for(int i = 0; i < data.length; i++) {
-            if(data[i] == null) {
-                // Model masih ada yang kosong
-                isFull = false;
-                break;
+        try(Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql)) {
+
+            List<TodoList> list = new ArrayList<>();
+            while(resultSet.next()) {
+                TodoList todoList = new TodoList();
+                todoList.setId(resultSet.getInt("id"));
+                todoList.setTodo(resultSet.getString("todo"));
+
+                list.add(todoList);
             }
-        }
-        return isFull;
-    }
 
-    public void resizeIfFull() {
-        // Jika isFull, kita resize ukuran array 2x lipat
-        if(isFull()) {
-            var temp = data;
-            data = new TodoList[data.length * 2];
+            return list.toArray(new TodoList[]{});
 
-            for(int i = 0; i < temp.length; i++) {
-                data[i] = temp[i];
-            }
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         }
     }
 
