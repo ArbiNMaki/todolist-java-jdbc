@@ -2,9 +2,19 @@ package aplikasi.todolist.db.Repository;
 
 import aplikasi.todolist.db.Entity.TodoList;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class TodoListRepositoryImpl implements TodoListRepository {
 
     public TodoList[] data = new TodoList[10];
+    private DataSource dataSource;
+
+    public TodoListRepositoryImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public TodoList[] getAll() {
@@ -37,14 +47,15 @@ public class TodoListRepositoryImpl implements TodoListRepository {
 
     @Override
     public void add(TodoList todolist) {
-        resizeIfFull();
+        String sql = "INSERT INTO todolist(todo) VALUES (?)";
 
-        // Tambahkan ke posisi yang data array nya NULL
-        for(var i = 0; i < data.length; i++) {
-            if(data[i] == null) {
-                data[i] = todolist;
-                break;
-            }
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, todolist.getTodo());
+            statement.executeUpdate();
+        } catch(SQLException exception) {
+            throw new RuntimeException(exception);
         }
     }
 
