@@ -1,0 +1,11 @@
+aplikasi\todolist\db\TodoList\Service\TodoListServiceImpl.class
+aplikasi\todolist\db\App.class
+aplikasi\todolist\db\TodoList\Repository\TodoListRepository.class
+aplikasi\todolist\db\TodoList\View\TodoListView.class
+aplikasi\todolist\db\TodoList\Service\TodoListService.class
+aplikasi\todolist\db\TodoList\Entity\TodoList.class
+aplikasi\todolist\db\AplikasiTodoListV2.class
+aplikasi\todolist\db\TodoList\Repository\TodoListRepositoryImpl.class
+aplikasi\todolist\db\TodoList\Test\service\TodoListServiceTest.class
+aplikasi\todolist\db\TodoList\Test\view\TodoListViewTest.class
+aplikasi\todolist\db\TodoList\util\InputUtil.class
